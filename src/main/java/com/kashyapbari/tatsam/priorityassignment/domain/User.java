@@ -25,6 +25,7 @@ public class User {
     @Column
     private String userName;
 
-    @OneToMany(mappedBy ="user")
+    @OneToMany(mappedBy ="user",
+            cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Priority> priorityList;
 }

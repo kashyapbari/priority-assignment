@@ -24,7 +24,9 @@ public class Priority {
     @JoinColumn(name="user_id")
     private User user;
 
-//    private Area areas;
+    @ManyToOne
+    @JoinColumn(name = "area_id")
+    private Area area;
     private Integer priority_level;
     private Integer satisfaction;
 

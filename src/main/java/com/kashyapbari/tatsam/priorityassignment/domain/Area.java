@@ -21,8 +21,4 @@ public class Area {
 
     @Column(unique = true)
     private String name;
-
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "area_id")
-    private List<Priority> priorities;
 }
