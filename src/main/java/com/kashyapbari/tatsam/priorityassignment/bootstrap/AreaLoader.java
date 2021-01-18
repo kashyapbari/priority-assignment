@@ -5,6 +5,8 @@ import com.kashyapbari.tatsam.priorityassignment.repository.AreaRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 @Component
 public class AreaLoader implements CommandLineRunner {
 
@@ -22,6 +24,7 @@ public class AreaLoader implements CommandLineRunner {
     private void loadAreas() {
         if (areaRepository.count() == 0){
             areaRepository.save(Area.builder()
+                    .id(UUID.fromString("b869cad7-8cd2-4f88-bb8e-9c7b1feb6c47"))
                     .name("Connection")
                     .build());
             areaRepository.save(Area.builder()

@@ -15,6 +15,11 @@ import java.util.UUID;
 @NoArgsConstructor
 @Builder
 @Entity
+@Table(
+        uniqueConstraints = {
+                @UniqueConstraint(name= "UK_PR_AREA_LEVEL",columnNames = {"area_id","priority_level"} ),
+                @UniqueConstraint(name= "UK_PR_AREA_USER",columnNames = {"area_id", "user_id"})}
+)
 public class Priority {
     @Id
     @GeneratedValue(generator = "UUID")

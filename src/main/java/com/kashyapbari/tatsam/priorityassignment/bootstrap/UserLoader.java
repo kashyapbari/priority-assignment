@@ -5,6 +5,8 @@ import com.kashyapbari.tatsam.priorityassignment.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.UUID;
+
 
 @Component
 public class UserLoader implements CommandLineRunner {
@@ -23,6 +25,7 @@ public class UserLoader implements CommandLineRunner {
     private void loadUserObjects() {
         if( userRepository.count() == 0){
             userRepository.save(User.builder()
+                    .id(UUID.fromString("874a644b-03bd-46a8-a9a3-bf51eddc337b"))
                     .userName("kashyap")
                     .build());
             userRepository.save(User.builder()

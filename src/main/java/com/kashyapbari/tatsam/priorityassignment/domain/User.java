@@ -26,6 +26,6 @@ public class User {
     private String userName;
 
     @OneToMany(mappedBy ="user",
-            cascade = CascadeType.ALL, orphanRemoval = true)
+            cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<Priority> priorityList;
 }
