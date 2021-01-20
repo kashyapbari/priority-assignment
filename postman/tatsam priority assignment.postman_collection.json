@@ -1,0 +1,188 @@
+{
+	"info": {
+		"_postman_id": "4d32fc74-95cd-4882-a54b-994e894c591a",
+		"name": "tatsam priority assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get all user priorities",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/userpriority?page=0&size=4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"userpriority"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "save user priorities",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"userId\": \"74c0887a-121a-4b51-b4f4-4adb7bd406ec\",\r\n        \"userName\": \"kashyap\",\r\n        \"priorityList\": [\r\n            {\r\n                \"areaId\":\"1d45947e-e799-4647-b01c-bdb88935e9c6\",\r\n                \"priority_level\":5,\r\n                \"satisfaction\":1\r\n            },\r\n            {\r\n                \"areaId\":\"b9342e8b-b42b-40aa-8a4b-6a8b2fe995ab\",\r\n                \"priority_level\":2,\r\n                \"satisfaction\":1\r\n            },\r\n            {\r\n                \"areaId\":\"954c7324-017c-4ef7-82f3-57972eb23563\",\r\n                \"priority_level\":3,\r\n                \"satisfaction\":1\r\n            },\r\n            {\r\n                \"areaId\":\"73288e72-f48d-4177-8330-365a22c698b5\",\r\n                \"priority_level\":4,\r\n                \"satisfaction\":1\r\n            }\r\n        ]\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/userpriority",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"userpriority"
+					]
+				},
+				"description": "make sure you fetch the correct user id and area id from get all user priorities and get all areas."
+			},
+			"response": []
+		},
+		{
+			"name": "get all areas",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/v1/area?page=0&size=4",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"area"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "4"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update user satisfaction level",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"userId\": \"74c0887a-121a-4b51-b4f4-4adb7bd406ec\",\r\n        \"userName\": \"kashyap\",\r\n        \"priorityList\": [\r\n            {\r\n                \"areaId\":\"1d45947e-e799-4647-b01c-bdb88935e9c6\",\r\n                \"satisfaction\":1\r\n            },\r\n            {\r\n                \"areaId\":\"b9342e8b-b42b-40aa-8a4b-6a8b2fe995ab\",\r\n                \"satisfaction\":3\r\n            },\r\n            {\r\n                \"areaId\":\"954c7324-017c-4ef7-82f3-57972eb23563\",\r\n                \"satisfaction\":2\r\n            },\r\n            {\r\n                \"areaId\":\"73288e72-f48d-4177-8330-365a22c698b5\",\r\n                \"satisfaction\":1\r\n            }\r\n        ]\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/userpriority",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"userpriority"
+					]
+				},
+				"description": "update only satisfaction level without changing priority"
+			},
+			"response": []
+		},
+		{
+			"name": "update user satisfaction level out of bounds",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"userId\": \"1ffd1133-1360-46bc-a3c2-4ae5841b19ed\",\r\n        \"userName\": \"kashyap\",\r\n        \"priorityList\": [\r\n            {\r\n                \"areaId\":\"7dde681f-c62d-40da-ad86-f848ab5ce4aa\",\r\n                \"satisfaction\":75\r\n            }\r\n        ]\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/userpriority",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"userpriority"
+					]
+				},
+				"description": "update only satisfaction level without changing priority\r\nmake sure you fetch the correct user id and area id from get all user priorities and get all areas."
+			},
+			"response": []
+		},
+		{
+			"name": "using the same priority for more than one area",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"userId\": \"1ffd1133-1360-46bc-a3c2-4ae5841b19ed\",\r\n        \"userName\": \"kashyap\",\r\n        \"priorityList\": [\r\n            {\r\n                \"areaId\":\"7dde681f-c62d-40da-ad86-f848ab5ce4aa\",\r\n                \"priority_level\":1,\r\n                \"satisfaction\":1\r\n            },\r\n            {\r\n                \"areaId\":\"4c34338a-0708-44bc-a4db-5df5a7a2186d\",\r\n                \"priority_level\":1,\r\n                \"satisfaction\":1\r\n            }\r\n        ]\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/api/v1/userpriority",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"v1",
+						"userpriority"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
