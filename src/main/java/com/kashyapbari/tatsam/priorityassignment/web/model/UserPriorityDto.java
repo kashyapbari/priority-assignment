@@ -5,9 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.UniqueElements;
 
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,9 +16,8 @@ import java.util.UUID;
 @Builder
 public class UserPriorityDto {
 
-    @NotBlank
+    @NotNull
     private UUID userId;
     private String userName;
-    @UniqueElements()
     private List<PriorityDto> priorityList;
 }

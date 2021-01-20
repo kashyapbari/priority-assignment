@@ -18,7 +18,8 @@ import java.util.UUID;
 @Table(
         uniqueConstraints = {
                 @UniqueConstraint(name= "UK_PR_AREA_LEVEL",columnNames = {"area_id","priority_level"} ),
-                @UniqueConstraint(name= "UK_PR_AREA_USER",columnNames = {"area_id", "user_id"})}
+                @UniqueConstraint(name= "UK_PR_AREA_USER",columnNames = {"area_id", "user_id"}),
+                @UniqueConstraint(name = "UK_PR_USER_LEVEL", columnNames = {"user_id", "priority_level"})}
 )
 public class Priority {
     @Id
