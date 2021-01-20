@@ -2,11 +2,13 @@ package com.kashyapbari.tatsam.priorityassignment.bootstrap;
 
 import com.kashyapbari.tatsam.priorityassignment.domain.Area;
 import com.kashyapbari.tatsam.priorityassignment.repository.AreaRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
+@Slf4j
 @Component
 public class AreaLoader implements CommandLineRunner {
 
@@ -23,8 +25,8 @@ public class AreaLoader implements CommandLineRunner {
 
     private void loadAreas() {
         if (areaRepository.count() == 0){
+            log.info("Initial Loading areas");
             areaRepository.save(Area.builder()
-                    .id(UUID.fromString("b869cad7-8cd2-4f88-bb8e-9c7b1feb6c47"))
                     .name("Connection")
                     .build());
             areaRepository.save(Area.builder()

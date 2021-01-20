@@ -2,12 +2,13 @@ package com.kashyapbari.tatsam.priorityassignment.bootstrap;
 
 import com.kashyapbari.tatsam.priorityassignment.domain.User;
 import com.kashyapbari.tatsam.priorityassignment.repository.UserRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
-
+@Slf4j
 @Component
 public class UserLoader implements CommandLineRunner {
 
@@ -24,8 +25,8 @@ public class UserLoader implements CommandLineRunner {
 
     private void loadUserObjects() {
         if( userRepository.count() == 0){
+            log.info("Initial Loading areas");
             userRepository.save(User.builder()
-                    .id(UUID.fromString("874a644b-03bd-46a8-a9a3-bf51eddc337b"))
                     .userName("kashyap")
                     .build());
             userRepository.save(User.builder()

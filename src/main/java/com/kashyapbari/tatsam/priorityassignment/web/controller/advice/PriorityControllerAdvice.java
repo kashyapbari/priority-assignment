@@ -51,6 +51,7 @@ public class PriorityControllerAdvice {
     }
     @ExceptionHandler(javax.validation.ConstraintViolationException.class)
     public ResponseEntity<PriorityAssignmentError> validationErrorHandler(javax.validation.ConstraintViolationException ex){
+        log.warn("[Validation Constrain Violation] error : {}", ex.getMessage());
         List<String> errors = new ArrayList<>(ex.getConstraintViolations().size());
         ex.getConstraintViolations().forEach(constraintViolation -> {
             errors.add(constraintViolation.getPropertyPath() + constraintViolation.getMessageTemplate()+" : " + constraintViolation.getMessage());
@@ -64,6 +65,7 @@ public class PriorityControllerAdvice {
 
     @ExceptionHandler(BindException.class)
     public ResponseEntity<PriorityAssignmentError> handleBindException(BindException ex){
+        log.warn("[Validation Bind Violation] error : {}", ex.getMessage());
         List<String> errors = new ArrayList<>(ex.getAllErrors().size());
         ex.getAllErrors().forEach(objectError -> {
             errors.add(objectError.getDefaultMessage()+ " : " +objectError.getObjectName());
@@ -78,7 +80,7 @@ public class PriorityControllerAdvice {
     @ExceptionHandler(CustomDataIntegrityException.class )
     public ResponseEntity<PriorityAssignmentError> handleCustomDataIntegrityException(
             CustomDataIntegrityException ex) {
-
+        log.warn("[Custom Data Integrity Violation] error : {}", ex.getMessage());
         return new ResponseEntity<>(PriorityAssignmentError.builder()
                 .errorCode(ex.getErrorCode())
                 .errorMessage(ex.getMessage())
@@ -88,6 +90,7 @@ public class PriorityControllerAdvice {
     @ExceptionHandler(DataIntegrityViolationException.class )
     public ResponseEntity<PriorityAssignmentError> handleConstraintViolation(
             ConstraintViolationException ex, WebRequest request) {
+        log.warn("[Data Integrity Violation] error : {}", ex.getMessage());
         List<String> errors = new ArrayList<String>();
         errors.add(ex.getConstraintName());
         errors.add(ex.getMessage());
@@ -102,7 +105,7 @@ public class PriorityControllerAdvice {
     @ExceptionHandler(InvalidDataAccessApiUsageException.class )
     public ResponseEntity<PriorityAssignmentError> handleInvalidDataAccessApiUsageException(
             InvalidDataAccessApiUsageException ex) {
-
+        log.warn("[Data Invalid Violation] error : {}", ex.getMessage());
         return new ResponseEntity<>(PriorityAssignmentError.builder()
                 .errorCode(API_CONSTRAINT_VIOLATION_ERRORCODE)
                 .errorMessage(ex.getLocalizedMessage())
@@ -112,6 +115,7 @@ public class PriorityControllerAdvice {
     @ExceptionHandler(InvalidIdentifierException.class)
     public ResponseEntity<PriorityAssignmentError> handleInvalidIdentifierException(
             InvalidIdentifierException ex){
+        log.warn("[Invalid Identification Violation] error : {}", ex.getMessage());
         return new ResponseEntity<>(PriorityAssignmentError.builder()
                 .errorCode(ex.getErrorCode())
                 .errorMessage(ex.getMessage())

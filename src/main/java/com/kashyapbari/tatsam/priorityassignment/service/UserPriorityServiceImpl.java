@@ -11,6 +11,7 @@ import com.kashyapbari.tatsam.priorityassignment.repository.UserRepository;
 import com.kashyapbari.tatsam.priorityassignment.web.model.PageResponse;
 import com.kashyapbari.tatsam.priorityassignment.web.model.PriorityDto;
 import com.kashyapbari.tatsam.priorityassignment.web.model.UserPriorityDto;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Page;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 @Service
 public class UserPriorityServiceImpl implements UserPriorityService {
     @Autowired
@@ -31,9 +33,12 @@ public class UserPriorityServiceImpl implements UserPriorityService {
 
     @Override
     public PageResponse<UserPriorityDto> getAllUserPriorities(Pageable paging) {
+        log.debug("Getting User Priorities page{} count{}", paging.getPageNumber(),
+                paging.getPageSize());
         List<UserPriorityDto> userPriorityDtos = new ArrayList<>();
         Page<User> userPage = userRepository.findAll(paging);
         List<User> users = userPage.getContent();
+        log.debug("Users Length: {}",users.size());
         for(User user: users){
             UserPriorityDto userPriorityDto = new UserPriorityDto();
             userPriorityDto.setUserId(user.getId());
@@ -58,25 +63,33 @@ public class UserPriorityServiceImpl implements UserPriorityService {
     @Override
     public UserPriorityDto saveUserPriority(UserPriorityDto userPriorityDto) {
         User user = userRepository.findById(userPriorityDto.getUserId()).orElse(null);
+//        validate user id provided
         if(user == null){
             throw new InvalidIdentifierException("Invalid Identifier for userId: "+userPriorityDto.getUserId());
         }
+        log.debug("User found: {}",user.getUserName());
         for(PriorityDto priorityDto: userPriorityDto.getPriorityList()){
             Area area = areaRepository.findById(priorityDto.getAreaId()).orElse(null);
+//            validate area id provided
             if(area == null){
                 throw new InvalidIdentifierException("Invalid Identifier for areaId: "+priorityDto.getAreaId());
             }
+            log.debug("Area found {}",area.getName());
             Priority priority = Priority.builder()
                     .user(user)
                     .area(area)
                     .build();
             Example<Priority> example = Example.of(priority);
+//            check if entry exist of area for user
             priority = priorityRepository.findOne(example).orElse(priority);
-            if (priorityDto.getPriority_level() != null){
+            if (priorityDto.getPriority_level() != null)
+            {
+//            check if user is already using a priority level
                 if (priorityRepository.findOne(Example.of(Priority.builder()
                         .priority_level(priorityDto.getPriority_level())
                         .user(user)
                         .build())).isPresent()){
+                    log.debug("Priority already in use");
                     throw new PriorityInUseException("Priority level cannot be repeated :"+priorityDto.getPriority_level());
                 }
                 priority.setPriority_level(priorityDto.getPriority_level());
